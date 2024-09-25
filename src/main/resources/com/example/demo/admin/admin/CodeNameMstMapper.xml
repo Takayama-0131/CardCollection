@@ -1,0 +1,1636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.admin.mapper.admin.CodeNameMstMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.admin.entity.admin.CodeNameMst">
+    <id column="PHYSCL_CD_NAME" jdbcType="NUMERIC" property="PHYSCL_CD_NAME" />
+    <result column="CREATED_DATE" jdbcType="TIMESTAMP" property="CREATED_DATE" />
+    <result column="CREATED_USER" jdbcType="VARCHAR" property="CREATED_USER" />
+    <result column="CREATED_PROGRAM" jdbcType="VARCHAR" property="CREATED_PROGRAM" />
+    <result column="LAST_EDITED" jdbcType="TIMESTAMP" property="LAST_EDITED" />
+    <result column="LAST_USER" jdbcType="VARCHAR" property="LAST_USER" />
+    <result column="LAST_PROGRAM" jdbcType="VARCHAR" property="LAST_PROGRAM" />
+    <result column="VERSION_EX_KEY" jdbcType="NUMERIC" property="VERSION_EX_KEY" />
+    <result column="LGCL_CD_NAME" jdbcType="VARCHAR" property="LGCL_CD_NAME" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PHYSCL_CD_NAME, CREATED_DATE, CREATED_USER, CREATED_PROGRAM, LAST_EDITED, LAST_USER, 
+    LAST_PROGRAM, VERSION_EX_KEY, LGCL_CD_NAME
+  </sql>
+  <select id="selectByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ADMIN.CODE_NAME_MST
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from ADMIN.CODE_NAME_MST
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample">
+    delete from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    insert into ADMIN.CODE_NAME_MST (PHYSCL_CD_NAME, CREATED_DATE, CREATED_USER, 
+      CREATED_PROGRAM, LAST_EDITED, LAST_USER, 
+      LAST_PROGRAM, VERSION_EX_KEY, LGCL_CD_NAME
+      )
+    values (#{PHYSCL_CD_NAME,jdbcType=NUMERIC}, #{CREATED_DATE,jdbcType=TIMESTAMP}, #{CREATED_USER,jdbcType=VARCHAR}, 
+      #{CREATED_PROGRAM,jdbcType=VARCHAR}, #{LAST_EDITED,jdbcType=TIMESTAMP}, #{LAST_USER,jdbcType=VARCHAR}, 
+      #{LAST_PROGRAM,jdbcType=VARCHAR}, #{VERSION_EX_KEY,jdbcType=NUMERIC}, #{LGCL_CD_NAME,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    insert into ADMIN.CODE_NAME_MST
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="PHYSCL_CD_NAME != null">
+        PHYSCL_CD_NAME,
+      </if>
+      <if test="CREATED_DATE != null">
+        CREATED_DATE,
+      </if>
+      <if test="CREATED_USER != null">
+        CREATED_USER,
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        CREATED_PROGRAM,
+      </if>
+      <if test="LAST_EDITED != null">
+        LAST_EDITED,
+      </if>
+      <if test="LAST_USER != null">
+        LAST_USER,
+      </if>
+      <if test="LAST_PROGRAM != null">
+        LAST_PROGRAM,
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        VERSION_EX_KEY,
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        LGCL_CD_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="PHYSCL_CD_NAME != null">
+        #{PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      </if>
+      <if test="CREATED_DATE != null">
+        #{CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="CREATED_USER != null">
+        #{CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_EDITED != null">
+        #{LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="LAST_USER != null">
+        #{LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_PROGRAM != null">
+        #{LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        #{LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample" resultType="java.lang.Long">
+    select count(*) from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ADMIN.CODE_NAME_MST
+    <set>
+      <if test="row.PHYSCL_CD_NAME != null">
+        PHYSCL_CD_NAME = #{row.PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      </if>
+      <if test="row.CREATED_DATE != null">
+        CREATED_DATE = #{row.CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.CREATED_USER != null">
+        CREATED_USER = #{row.CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="row.CREATED_PROGRAM != null">
+        CREATED_PROGRAM = #{row.CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="row.LAST_EDITED != null">
+        LAST_EDITED = #{row.LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.LAST_USER != null">
+        LAST_USER = #{row.LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="row.LAST_PROGRAM != null">
+        LAST_PROGRAM = #{row.LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="row.VERSION_EX_KEY != null">
+        VERSION_EX_KEY = #{row.VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="row.LGCL_CD_NAME != null">
+        LGCL_CD_NAME = #{row.LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ADMIN.CODE_NAME_MST
+    set PHYSCL_CD_NAME = #{row.PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      CREATED_DATE = #{row.CREATED_DATE,jdbcType=TIMESTAMP},
+      CREATED_USER = #{row.CREATED_USER,jdbcType=VARCHAR},
+      CREATED_PROGRAM = #{row.CREATED_PROGRAM,jdbcType=VARCHAR},
+      LAST_EDITED = #{row.LAST_EDITED,jdbcType=TIMESTAMP},
+      LAST_USER = #{row.LAST_USER,jdbcType=VARCHAR},
+      LAST_PROGRAM = #{row.LAST_PROGRAM,jdbcType=VARCHAR},
+      VERSION_EX_KEY = #{row.VERSION_EX_KEY,jdbcType=NUMERIC},
+      LGCL_CD_NAME = #{row.LGCL_CD_NAME,jdbcType=VARCHAR}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    update ADMIN.CODE_NAME_MST
+    <set>
+      <if test="CREATED_DATE != null">
+        CREATED_DATE = #{CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="CREATED_USER != null">
+        CREATED_USER = #{CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        CREATED_PROGRAM = #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_EDITED != null">
+        LAST_EDITED = #{LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="LAST_USER != null">
+        LAST_USER = #{LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_PROGRAM != null">
+        LAST_PROGRAM = #{LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        VERSION_EX_KEY = #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        LGCL_CD_NAME = #{LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    update ADMIN.CODE_NAME_MST
+    set CREATED_DATE = #{CREATED_DATE,jdbcType=TIMESTAMP},
+      CREATED_USER = #{CREATED_USER,jdbcType=VARCHAR},
+      CREATED_PROGRAM = #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      LAST_EDITED = #{LAST_EDITED,jdbcType=TIMESTAMP},
+      LAST_USER = #{LAST_USER,jdbcType=VARCHAR},
+      LAST_PROGRAM = #{LAST_PROGRAM,jdbcType=VARCHAR},
+      VERSION_EX_KEY = #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      LGCL_CD_NAME = #{LGCL_CD_NAME,jdbcType=VARCHAR}
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.example.demo.admin.entity.admin.CodeNameMst">
+    <id column="PHYSCL_CD_NAME" jdbcType="NUMERIC" property="PHYSCL_CD_NAME" />
+    <result column="CREATED_DATE" jdbcType="TIMESTAMP" property="CREATED_DATE" />
+    <result column="CREATED_USER" jdbcType="VARCHAR" property="CREATED_USER" />
+    <result column="CREATED_PROGRAM" jdbcType="VARCHAR" property="CREATED_PROGRAM" />
+    <result column="LAST_EDITED" jdbcType="TIMESTAMP" property="LAST_EDITED" />
+    <result column="LAST_USER" jdbcType="VARCHAR" property="LAST_USER" />
+    <result column="LAST_PROGRAM" jdbcType="VARCHAR" property="LAST_PROGRAM" />
+    <result column="VERSION_EX_KEY" jdbcType="NUMERIC" property="VERSION_EX_KEY" />
+    <result column="LGCL_CD_NAME" jdbcType="VARCHAR" property="LGCL_CD_NAME" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PHYSCL_CD_NAME, CREATED_DATE, CREATED_USER, CREATED_PROGRAM, LAST_EDITED, LAST_USER, 
+    LAST_PROGRAM, VERSION_EX_KEY, LGCL_CD_NAME
+  </sql>
+  <select id="selectByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ADMIN.CODE_NAME_MST
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from ADMIN.CODE_NAME_MST
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample">
+    delete from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    insert into ADMIN.CODE_NAME_MST (PHYSCL_CD_NAME, CREATED_DATE, CREATED_USER, 
+      CREATED_PROGRAM, LAST_EDITED, LAST_USER, 
+      LAST_PROGRAM, VERSION_EX_KEY, LGCL_CD_NAME
+      )
+    values (#{PHYSCL_CD_NAME,jdbcType=NUMERIC}, #{CREATED_DATE,jdbcType=TIMESTAMP}, #{CREATED_USER,jdbcType=VARCHAR}, 
+      #{CREATED_PROGRAM,jdbcType=VARCHAR}, #{LAST_EDITED,jdbcType=TIMESTAMP}, #{LAST_USER,jdbcType=VARCHAR}, 
+      #{LAST_PROGRAM,jdbcType=VARCHAR}, #{VERSION_EX_KEY,jdbcType=NUMERIC}, #{LGCL_CD_NAME,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    insert into ADMIN.CODE_NAME_MST
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="PHYSCL_CD_NAME != null">
+        PHYSCL_CD_NAME,
+      </if>
+      <if test="CREATED_DATE != null">
+        CREATED_DATE,
+      </if>
+      <if test="CREATED_USER != null">
+        CREATED_USER,
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        CREATED_PROGRAM,
+      </if>
+      <if test="LAST_EDITED != null">
+        LAST_EDITED,
+      </if>
+      <if test="LAST_USER != null">
+        LAST_USER,
+      </if>
+      <if test="LAST_PROGRAM != null">
+        LAST_PROGRAM,
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        VERSION_EX_KEY,
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        LGCL_CD_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="PHYSCL_CD_NAME != null">
+        #{PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      </if>
+      <if test="CREATED_DATE != null">
+        #{CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="CREATED_USER != null">
+        #{CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_EDITED != null">
+        #{LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="LAST_USER != null">
+        #{LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_PROGRAM != null">
+        #{LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        #{LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample" resultType="java.lang.Long">
+    select count(*) from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ADMIN.CODE_NAME_MST
+    <set>
+      <if test="row.PHYSCL_CD_NAME != null">
+        PHYSCL_CD_NAME = #{row.PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      </if>
+      <if test="row.CREATED_DATE != null">
+        CREATED_DATE = #{row.CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.CREATED_USER != null">
+        CREATED_USER = #{row.CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="row.CREATED_PROGRAM != null">
+        CREATED_PROGRAM = #{row.CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="row.LAST_EDITED != null">
+        LAST_EDITED = #{row.LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.LAST_USER != null">
+        LAST_USER = #{row.LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="row.LAST_PROGRAM != null">
+        LAST_PROGRAM = #{row.LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="row.VERSION_EX_KEY != null">
+        VERSION_EX_KEY = #{row.VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="row.LGCL_CD_NAME != null">
+        LGCL_CD_NAME = #{row.LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ADMIN.CODE_NAME_MST
+    set PHYSCL_CD_NAME = #{row.PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      CREATED_DATE = #{row.CREATED_DATE,jdbcType=TIMESTAMP},
+      CREATED_USER = #{row.CREATED_USER,jdbcType=VARCHAR},
+      CREATED_PROGRAM = #{row.CREATED_PROGRAM,jdbcType=VARCHAR},
+      LAST_EDITED = #{row.LAST_EDITED,jdbcType=TIMESTAMP},
+      LAST_USER = #{row.LAST_USER,jdbcType=VARCHAR},
+      LAST_PROGRAM = #{row.LAST_PROGRAM,jdbcType=VARCHAR},
+      VERSION_EX_KEY = #{row.VERSION_EX_KEY,jdbcType=NUMERIC},
+      LGCL_CD_NAME = #{row.LGCL_CD_NAME,jdbcType=VARCHAR}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    update ADMIN.CODE_NAME_MST
+    <set>
+      <if test="CREATED_DATE != null">
+        CREATED_DATE = #{CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="CREATED_USER != null">
+        CREATED_USER = #{CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        CREATED_PROGRAM = #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_EDITED != null">
+        LAST_EDITED = #{LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="LAST_USER != null">
+        LAST_USER = #{LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_PROGRAM != null">
+        LAST_PROGRAM = #{LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        VERSION_EX_KEY = #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        LGCL_CD_NAME = #{LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    update ADMIN.CODE_NAME_MST
+    set CREATED_DATE = #{CREATED_DATE,jdbcType=TIMESTAMP},
+      CREATED_USER = #{CREATED_USER,jdbcType=VARCHAR},
+      CREATED_PROGRAM = #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      LAST_EDITED = #{LAST_EDITED,jdbcType=TIMESTAMP},
+      LAST_USER = #{LAST_USER,jdbcType=VARCHAR},
+      LAST_PROGRAM = #{LAST_PROGRAM,jdbcType=VARCHAR},
+      VERSION_EX_KEY = #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      LGCL_CD_NAME = #{LGCL_CD_NAME,jdbcType=VARCHAR}
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.example.demo.admin.entity.admin.CodeNameMst">
+    <id column="PHYSCL_CD_NAME" jdbcType="NUMERIC" property="PHYSCL_CD_NAME" />
+    <result column="CREATED_DATE" jdbcType="TIMESTAMP" property="CREATED_DATE" />
+    <result column="CREATED_USER" jdbcType="VARCHAR" property="CREATED_USER" />
+    <result column="CREATED_PROGRAM" jdbcType="VARCHAR" property="CREATED_PROGRAM" />
+    <result column="LAST_EDITED" jdbcType="TIMESTAMP" property="LAST_EDITED" />
+    <result column="LAST_USER" jdbcType="VARCHAR" property="LAST_USER" />
+    <result column="LAST_PROGRAM" jdbcType="VARCHAR" property="LAST_PROGRAM" />
+    <result column="VERSION_EX_KEY" jdbcType="NUMERIC" property="VERSION_EX_KEY" />
+    <result column="LGCL_CD_NAME" jdbcType="VARCHAR" property="LGCL_CD_NAME" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PHYSCL_CD_NAME, CREATED_DATE, CREATED_USER, CREATED_PROGRAM, LAST_EDITED, LAST_USER, 
+    LAST_PROGRAM, VERSION_EX_KEY, LGCL_CD_NAME
+  </sql>
+  <select id="selectByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ADMIN.CODE_NAME_MST
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from ADMIN.CODE_NAME_MST
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample">
+    delete from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    insert into ADMIN.CODE_NAME_MST (PHYSCL_CD_NAME, CREATED_DATE, CREATED_USER, 
+      CREATED_PROGRAM, LAST_EDITED, LAST_USER, 
+      LAST_PROGRAM, VERSION_EX_KEY, LGCL_CD_NAME
+      )
+    values (#{PHYSCL_CD_NAME,jdbcType=NUMERIC}, #{CREATED_DATE,jdbcType=TIMESTAMP}, #{CREATED_USER,jdbcType=VARCHAR}, 
+      #{CREATED_PROGRAM,jdbcType=VARCHAR}, #{LAST_EDITED,jdbcType=TIMESTAMP}, #{LAST_USER,jdbcType=VARCHAR}, 
+      #{LAST_PROGRAM,jdbcType=VARCHAR}, #{VERSION_EX_KEY,jdbcType=NUMERIC}, #{LGCL_CD_NAME,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    insert into ADMIN.CODE_NAME_MST
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="PHYSCL_CD_NAME != null">
+        PHYSCL_CD_NAME,
+      </if>
+      <if test="CREATED_DATE != null">
+        CREATED_DATE,
+      </if>
+      <if test="CREATED_USER != null">
+        CREATED_USER,
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        CREATED_PROGRAM,
+      </if>
+      <if test="LAST_EDITED != null">
+        LAST_EDITED,
+      </if>
+      <if test="LAST_USER != null">
+        LAST_USER,
+      </if>
+      <if test="LAST_PROGRAM != null">
+        LAST_PROGRAM,
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        VERSION_EX_KEY,
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        LGCL_CD_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="PHYSCL_CD_NAME != null">
+        #{PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      </if>
+      <if test="CREATED_DATE != null">
+        #{CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="CREATED_USER != null">
+        #{CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_EDITED != null">
+        #{LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="LAST_USER != null">
+        #{LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_PROGRAM != null">
+        #{LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        #{LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample" resultType="java.lang.Long">
+    select count(*) from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ADMIN.CODE_NAME_MST
+    <set>
+      <if test="row.PHYSCL_CD_NAME != null">
+        PHYSCL_CD_NAME = #{row.PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      </if>
+      <if test="row.CREATED_DATE != null">
+        CREATED_DATE = #{row.CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.CREATED_USER != null">
+        CREATED_USER = #{row.CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="row.CREATED_PROGRAM != null">
+        CREATED_PROGRAM = #{row.CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="row.LAST_EDITED != null">
+        LAST_EDITED = #{row.LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.LAST_USER != null">
+        LAST_USER = #{row.LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="row.LAST_PROGRAM != null">
+        LAST_PROGRAM = #{row.LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="row.VERSION_EX_KEY != null">
+        VERSION_EX_KEY = #{row.VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="row.LGCL_CD_NAME != null">
+        LGCL_CD_NAME = #{row.LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ADMIN.CODE_NAME_MST
+    set PHYSCL_CD_NAME = #{row.PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      CREATED_DATE = #{row.CREATED_DATE,jdbcType=TIMESTAMP},
+      CREATED_USER = #{row.CREATED_USER,jdbcType=VARCHAR},
+      CREATED_PROGRAM = #{row.CREATED_PROGRAM,jdbcType=VARCHAR},
+      LAST_EDITED = #{row.LAST_EDITED,jdbcType=TIMESTAMP},
+      LAST_USER = #{row.LAST_USER,jdbcType=VARCHAR},
+      LAST_PROGRAM = #{row.LAST_PROGRAM,jdbcType=VARCHAR},
+      VERSION_EX_KEY = #{row.VERSION_EX_KEY,jdbcType=NUMERIC},
+      LGCL_CD_NAME = #{row.LGCL_CD_NAME,jdbcType=VARCHAR}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    update ADMIN.CODE_NAME_MST
+    <set>
+      <if test="CREATED_DATE != null">
+        CREATED_DATE = #{CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="CREATED_USER != null">
+        CREATED_USER = #{CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        CREATED_PROGRAM = #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_EDITED != null">
+        LAST_EDITED = #{LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="LAST_USER != null">
+        LAST_USER = #{LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_PROGRAM != null">
+        LAST_PROGRAM = #{LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        VERSION_EX_KEY = #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        LGCL_CD_NAME = #{LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    update ADMIN.CODE_NAME_MST
+    set CREATED_DATE = #{CREATED_DATE,jdbcType=TIMESTAMP},
+      CREATED_USER = #{CREATED_USER,jdbcType=VARCHAR},
+      CREATED_PROGRAM = #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      LAST_EDITED = #{LAST_EDITED,jdbcType=TIMESTAMP},
+      LAST_USER = #{LAST_USER,jdbcType=VARCHAR},
+      LAST_PROGRAM = #{LAST_PROGRAM,jdbcType=VARCHAR},
+      VERSION_EX_KEY = #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      LGCL_CD_NAME = #{LGCL_CD_NAME,jdbcType=VARCHAR}
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.example.demo.admin.entity.admin.CodeNameMst">
+    <id column="PHYSCL_CD_NAME" jdbcType="NUMERIC" property="PHYSCL_CD_NAME" />
+    <result column="CREATED_DATE" jdbcType="TIMESTAMP" property="CREATED_DATE" />
+    <result column="CREATED_USER" jdbcType="VARCHAR" property="CREATED_USER" />
+    <result column="CREATED_PROGRAM" jdbcType="VARCHAR" property="CREATED_PROGRAM" />
+    <result column="LAST_EDITED" jdbcType="TIMESTAMP" property="LAST_EDITED" />
+    <result column="LAST_USER" jdbcType="VARCHAR" property="LAST_USER" />
+    <result column="LAST_PROGRAM" jdbcType="VARCHAR" property="LAST_PROGRAM" />
+    <result column="VERSION_EX_KEY" jdbcType="NUMERIC" property="VERSION_EX_KEY" />
+    <result column="LGCL_CD_NAME" jdbcType="VARCHAR" property="LGCL_CD_NAME" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PHYSCL_CD_NAME, CREATED_DATE, CREATED_USER, CREATED_PROGRAM, LAST_EDITED, LAST_USER, 
+    LAST_PROGRAM, VERSION_EX_KEY, LGCL_CD_NAME
+  </sql>
+  <select id="selectByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ADMIN.CODE_NAME_MST
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from ADMIN.CODE_NAME_MST
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample">
+    delete from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    insert into ADMIN.CODE_NAME_MST (PHYSCL_CD_NAME, CREATED_DATE, CREATED_USER, 
+      CREATED_PROGRAM, LAST_EDITED, LAST_USER, 
+      LAST_PROGRAM, VERSION_EX_KEY, LGCL_CD_NAME
+      )
+    values (#{PHYSCL_CD_NAME,jdbcType=NUMERIC}, #{CREATED_DATE,jdbcType=TIMESTAMP}, #{CREATED_USER,jdbcType=VARCHAR}, 
+      #{CREATED_PROGRAM,jdbcType=VARCHAR}, #{LAST_EDITED,jdbcType=TIMESTAMP}, #{LAST_USER,jdbcType=VARCHAR}, 
+      #{LAST_PROGRAM,jdbcType=VARCHAR}, #{VERSION_EX_KEY,jdbcType=NUMERIC}, #{LGCL_CD_NAME,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    insert into ADMIN.CODE_NAME_MST
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="PHYSCL_CD_NAME != null">
+        PHYSCL_CD_NAME,
+      </if>
+      <if test="CREATED_DATE != null">
+        CREATED_DATE,
+      </if>
+      <if test="CREATED_USER != null">
+        CREATED_USER,
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        CREATED_PROGRAM,
+      </if>
+      <if test="LAST_EDITED != null">
+        LAST_EDITED,
+      </if>
+      <if test="LAST_USER != null">
+        LAST_USER,
+      </if>
+      <if test="LAST_PROGRAM != null">
+        LAST_PROGRAM,
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        VERSION_EX_KEY,
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        LGCL_CD_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="PHYSCL_CD_NAME != null">
+        #{PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      </if>
+      <if test="CREATED_DATE != null">
+        #{CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="CREATED_USER != null">
+        #{CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_EDITED != null">
+        #{LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="LAST_USER != null">
+        #{LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_PROGRAM != null">
+        #{LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        #{LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample" resultType="java.lang.Long">
+    select count(*) from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ADMIN.CODE_NAME_MST
+    <set>
+      <if test="row.PHYSCL_CD_NAME != null">
+        PHYSCL_CD_NAME = #{row.PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      </if>
+      <if test="row.CREATED_DATE != null">
+        CREATED_DATE = #{row.CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.CREATED_USER != null">
+        CREATED_USER = #{row.CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="row.CREATED_PROGRAM != null">
+        CREATED_PROGRAM = #{row.CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="row.LAST_EDITED != null">
+        LAST_EDITED = #{row.LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.LAST_USER != null">
+        LAST_USER = #{row.LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="row.LAST_PROGRAM != null">
+        LAST_PROGRAM = #{row.LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="row.VERSION_EX_KEY != null">
+        VERSION_EX_KEY = #{row.VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="row.LGCL_CD_NAME != null">
+        LGCL_CD_NAME = #{row.LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ADMIN.CODE_NAME_MST
+    set PHYSCL_CD_NAME = #{row.PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      CREATED_DATE = #{row.CREATED_DATE,jdbcType=TIMESTAMP},
+      CREATED_USER = #{row.CREATED_USER,jdbcType=VARCHAR},
+      CREATED_PROGRAM = #{row.CREATED_PROGRAM,jdbcType=VARCHAR},
+      LAST_EDITED = #{row.LAST_EDITED,jdbcType=TIMESTAMP},
+      LAST_USER = #{row.LAST_USER,jdbcType=VARCHAR},
+      LAST_PROGRAM = #{row.LAST_PROGRAM,jdbcType=VARCHAR},
+      VERSION_EX_KEY = #{row.VERSION_EX_KEY,jdbcType=NUMERIC},
+      LGCL_CD_NAME = #{row.LGCL_CD_NAME,jdbcType=VARCHAR}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    update ADMIN.CODE_NAME_MST
+    <set>
+      <if test="CREATED_DATE != null">
+        CREATED_DATE = #{CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="CREATED_USER != null">
+        CREATED_USER = #{CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        CREATED_PROGRAM = #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_EDITED != null">
+        LAST_EDITED = #{LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="LAST_USER != null">
+        LAST_USER = #{LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_PROGRAM != null">
+        LAST_PROGRAM = #{LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        VERSION_EX_KEY = #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        LGCL_CD_NAME = #{LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    update ADMIN.CODE_NAME_MST
+    set CREATED_DATE = #{CREATED_DATE,jdbcType=TIMESTAMP},
+      CREATED_USER = #{CREATED_USER,jdbcType=VARCHAR},
+      CREATED_PROGRAM = #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      LAST_EDITED = #{LAST_EDITED,jdbcType=TIMESTAMP},
+      LAST_USER = #{LAST_USER,jdbcType=VARCHAR},
+      LAST_PROGRAM = #{LAST_PROGRAM,jdbcType=VARCHAR},
+      VERSION_EX_KEY = #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      LGCL_CD_NAME = #{LGCL_CD_NAME,jdbcType=VARCHAR}
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.example.demo.admin.entity.admin.CodeNameMst">
+    <id column="PHYSCL_CD_NAME" jdbcType="NUMERIC" property="PHYSCL_CD_NAME" />
+    <result column="CREATED_DATE" jdbcType="TIMESTAMP" property="CREATED_DATE" />
+    <result column="CREATED_USER" jdbcType="VARCHAR" property="CREATED_USER" />
+    <result column="CREATED_PROGRAM" jdbcType="VARCHAR" property="CREATED_PROGRAM" />
+    <result column="LAST_EDITED" jdbcType="TIMESTAMP" property="LAST_EDITED" />
+    <result column="LAST_USER" jdbcType="VARCHAR" property="LAST_USER" />
+    <result column="LAST_PROGRAM" jdbcType="VARCHAR" property="LAST_PROGRAM" />
+    <result column="VERSION_EX_KEY" jdbcType="NUMERIC" property="VERSION_EX_KEY" />
+    <result column="LGCL_CD_NAME" jdbcType="VARCHAR" property="LGCL_CD_NAME" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PHYSCL_CD_NAME, CREATED_DATE, CREATED_USER, CREATED_PROGRAM, LAST_EDITED, LAST_USER, 
+    LAST_PROGRAM, VERSION_EX_KEY, LGCL_CD_NAME
+  </sql>
+  <select id="selectByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ADMIN.CODE_NAME_MST
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from ADMIN.CODE_NAME_MST
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample">
+    delete from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    insert into ADMIN.CODE_NAME_MST (PHYSCL_CD_NAME, CREATED_DATE, CREATED_USER, 
+      CREATED_PROGRAM, LAST_EDITED, LAST_USER, 
+      LAST_PROGRAM, VERSION_EX_KEY, LGCL_CD_NAME
+      )
+    values (#{PHYSCL_CD_NAME,jdbcType=NUMERIC}, #{CREATED_DATE,jdbcType=TIMESTAMP}, #{CREATED_USER,jdbcType=VARCHAR}, 
+      #{CREATED_PROGRAM,jdbcType=VARCHAR}, #{LAST_EDITED,jdbcType=TIMESTAMP}, #{LAST_USER,jdbcType=VARCHAR}, 
+      #{LAST_PROGRAM,jdbcType=VARCHAR}, #{VERSION_EX_KEY,jdbcType=NUMERIC}, #{LGCL_CD_NAME,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    insert into ADMIN.CODE_NAME_MST
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="PHYSCL_CD_NAME != null">
+        PHYSCL_CD_NAME,
+      </if>
+      <if test="CREATED_DATE != null">
+        CREATED_DATE,
+      </if>
+      <if test="CREATED_USER != null">
+        CREATED_USER,
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        CREATED_PROGRAM,
+      </if>
+      <if test="LAST_EDITED != null">
+        LAST_EDITED,
+      </if>
+      <if test="LAST_USER != null">
+        LAST_USER,
+      </if>
+      <if test="LAST_PROGRAM != null">
+        LAST_PROGRAM,
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        VERSION_EX_KEY,
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        LGCL_CD_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="PHYSCL_CD_NAME != null">
+        #{PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      </if>
+      <if test="CREATED_DATE != null">
+        #{CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="CREATED_USER != null">
+        #{CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_EDITED != null">
+        #{LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="LAST_USER != null">
+        #{LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_PROGRAM != null">
+        #{LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        #{LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample" resultType="java.lang.Long">
+    select count(*) from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ADMIN.CODE_NAME_MST
+    <set>
+      <if test="row.PHYSCL_CD_NAME != null">
+        PHYSCL_CD_NAME = #{row.PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      </if>
+      <if test="row.CREATED_DATE != null">
+        CREATED_DATE = #{row.CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.CREATED_USER != null">
+        CREATED_USER = #{row.CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="row.CREATED_PROGRAM != null">
+        CREATED_PROGRAM = #{row.CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="row.LAST_EDITED != null">
+        LAST_EDITED = #{row.LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.LAST_USER != null">
+        LAST_USER = #{row.LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="row.LAST_PROGRAM != null">
+        LAST_PROGRAM = #{row.LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="row.VERSION_EX_KEY != null">
+        VERSION_EX_KEY = #{row.VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="row.LGCL_CD_NAME != null">
+        LGCL_CD_NAME = #{row.LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ADMIN.CODE_NAME_MST
+    set PHYSCL_CD_NAME = #{row.PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      CREATED_DATE = #{row.CREATED_DATE,jdbcType=TIMESTAMP},
+      CREATED_USER = #{row.CREATED_USER,jdbcType=VARCHAR},
+      CREATED_PROGRAM = #{row.CREATED_PROGRAM,jdbcType=VARCHAR},
+      LAST_EDITED = #{row.LAST_EDITED,jdbcType=TIMESTAMP},
+      LAST_USER = #{row.LAST_USER,jdbcType=VARCHAR},
+      LAST_PROGRAM = #{row.LAST_PROGRAM,jdbcType=VARCHAR},
+      VERSION_EX_KEY = #{row.VERSION_EX_KEY,jdbcType=NUMERIC},
+      LGCL_CD_NAME = #{row.LGCL_CD_NAME,jdbcType=VARCHAR}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    update ADMIN.CODE_NAME_MST
+    <set>
+      <if test="CREATED_DATE != null">
+        CREATED_DATE = #{CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="CREATED_USER != null">
+        CREATED_USER = #{CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        CREATED_PROGRAM = #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_EDITED != null">
+        LAST_EDITED = #{LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="LAST_USER != null">
+        LAST_USER = #{LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_PROGRAM != null">
+        LAST_PROGRAM = #{LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        VERSION_EX_KEY = #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        LGCL_CD_NAME = #{LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    update ADMIN.CODE_NAME_MST
+    set CREATED_DATE = #{CREATED_DATE,jdbcType=TIMESTAMP},
+      CREATED_USER = #{CREATED_USER,jdbcType=VARCHAR},
+      CREATED_PROGRAM = #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      LAST_EDITED = #{LAST_EDITED,jdbcType=TIMESTAMP},
+      LAST_USER = #{LAST_USER,jdbcType=VARCHAR},
+      LAST_PROGRAM = #{LAST_PROGRAM,jdbcType=VARCHAR},
+      VERSION_EX_KEY = #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      LGCL_CD_NAME = #{LGCL_CD_NAME,jdbcType=VARCHAR}
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.example.demo.admin.entity.admin.CodeNameMst">
+    <id column="PHYSCL_CD_NAME" jdbcType="NUMERIC" property="PHYSCL_CD_NAME" />
+    <result column="CREATED_DATE" jdbcType="TIMESTAMP" property="CREATED_DATE" />
+    <result column="CREATED_USER" jdbcType="VARCHAR" property="CREATED_USER" />
+    <result column="CREATED_PROGRAM" jdbcType="VARCHAR" property="CREATED_PROGRAM" />
+    <result column="LAST_EDITED" jdbcType="TIMESTAMP" property="LAST_EDITED" />
+    <result column="LAST_USER" jdbcType="VARCHAR" property="LAST_USER" />
+    <result column="LAST_PROGRAM" jdbcType="VARCHAR" property="LAST_PROGRAM" />
+    <result column="VERSION_EX_KEY" jdbcType="NUMERIC" property="VERSION_EX_KEY" />
+    <result column="LGCL_CD_NAME" jdbcType="VARCHAR" property="LGCL_CD_NAME" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PHYSCL_CD_NAME, CREATED_DATE, CREATED_USER, CREATED_PROGRAM, LAST_EDITED, LAST_USER, 
+    LAST_PROGRAM, VERSION_EX_KEY, LGCL_CD_NAME
+  </sql>
+  <select id="selectByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ADMIN.CODE_NAME_MST
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from ADMIN.CODE_NAME_MST
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample">
+    delete from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    insert into ADMIN.CODE_NAME_MST (PHYSCL_CD_NAME, CREATED_DATE, CREATED_USER, 
+      CREATED_PROGRAM, LAST_EDITED, LAST_USER, 
+      LAST_PROGRAM, VERSION_EX_KEY, LGCL_CD_NAME
+      )
+    values (#{PHYSCL_CD_NAME,jdbcType=NUMERIC}, #{CREATED_DATE,jdbcType=TIMESTAMP}, #{CREATED_USER,jdbcType=VARCHAR}, 
+      #{CREATED_PROGRAM,jdbcType=VARCHAR}, #{LAST_EDITED,jdbcType=TIMESTAMP}, #{LAST_USER,jdbcType=VARCHAR}, 
+      #{LAST_PROGRAM,jdbcType=VARCHAR}, #{VERSION_EX_KEY,jdbcType=NUMERIC}, #{LGCL_CD_NAME,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    insert into ADMIN.CODE_NAME_MST
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="PHYSCL_CD_NAME != null">
+        PHYSCL_CD_NAME,
+      </if>
+      <if test="CREATED_DATE != null">
+        CREATED_DATE,
+      </if>
+      <if test="CREATED_USER != null">
+        CREATED_USER,
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        CREATED_PROGRAM,
+      </if>
+      <if test="LAST_EDITED != null">
+        LAST_EDITED,
+      </if>
+      <if test="LAST_USER != null">
+        LAST_USER,
+      </if>
+      <if test="LAST_PROGRAM != null">
+        LAST_PROGRAM,
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        VERSION_EX_KEY,
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        LGCL_CD_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="PHYSCL_CD_NAME != null">
+        #{PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      </if>
+      <if test="CREATED_DATE != null">
+        #{CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="CREATED_USER != null">
+        #{CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_EDITED != null">
+        #{LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="LAST_USER != null">
+        #{LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_PROGRAM != null">
+        #{LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        #{LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.admin.entity.admin.CodeNameMstExample" resultType="java.lang.Long">
+    select count(*) from ADMIN.CODE_NAME_MST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ADMIN.CODE_NAME_MST
+    <set>
+      <if test="row.PHYSCL_CD_NAME != null">
+        PHYSCL_CD_NAME = #{row.PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      </if>
+      <if test="row.CREATED_DATE != null">
+        CREATED_DATE = #{row.CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.CREATED_USER != null">
+        CREATED_USER = #{row.CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="row.CREATED_PROGRAM != null">
+        CREATED_PROGRAM = #{row.CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="row.LAST_EDITED != null">
+        LAST_EDITED = #{row.LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.LAST_USER != null">
+        LAST_USER = #{row.LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="row.LAST_PROGRAM != null">
+        LAST_PROGRAM = #{row.LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="row.VERSION_EX_KEY != null">
+        VERSION_EX_KEY = #{row.VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="row.LGCL_CD_NAME != null">
+        LGCL_CD_NAME = #{row.LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ADMIN.CODE_NAME_MST
+    set PHYSCL_CD_NAME = #{row.PHYSCL_CD_NAME,jdbcType=NUMERIC},
+      CREATED_DATE = #{row.CREATED_DATE,jdbcType=TIMESTAMP},
+      CREATED_USER = #{row.CREATED_USER,jdbcType=VARCHAR},
+      CREATED_PROGRAM = #{row.CREATED_PROGRAM,jdbcType=VARCHAR},
+      LAST_EDITED = #{row.LAST_EDITED,jdbcType=TIMESTAMP},
+      LAST_USER = #{row.LAST_USER,jdbcType=VARCHAR},
+      LAST_PROGRAM = #{row.LAST_PROGRAM,jdbcType=VARCHAR},
+      VERSION_EX_KEY = #{row.VERSION_EX_KEY,jdbcType=NUMERIC},
+      LGCL_CD_NAME = #{row.LGCL_CD_NAME,jdbcType=VARCHAR}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    update ADMIN.CODE_NAME_MST
+    <set>
+      <if test="CREATED_DATE != null">
+        CREATED_DATE = #{CREATED_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="CREATED_USER != null">
+        CREATED_USER = #{CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATED_PROGRAM != null">
+        CREATED_PROGRAM = #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_EDITED != null">
+        LAST_EDITED = #{LAST_EDITED,jdbcType=TIMESTAMP},
+      </if>
+      <if test="LAST_USER != null">
+        LAST_USER = #{LAST_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="LAST_PROGRAM != null">
+        LAST_PROGRAM = #{LAST_PROGRAM,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSION_EX_KEY != null">
+        VERSION_EX_KEY = #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      </if>
+      <if test="LGCL_CD_NAME != null">
+        LGCL_CD_NAME = #{LGCL_CD_NAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.admin.entity.admin.CodeNameMst">
+    update ADMIN.CODE_NAME_MST
+    set CREATED_DATE = #{CREATED_DATE,jdbcType=TIMESTAMP},
+      CREATED_USER = #{CREATED_USER,jdbcType=VARCHAR},
+      CREATED_PROGRAM = #{CREATED_PROGRAM,jdbcType=VARCHAR},
+      LAST_EDITED = #{LAST_EDITED,jdbcType=TIMESTAMP},
+      LAST_USER = #{LAST_USER,jdbcType=VARCHAR},
+      LAST_PROGRAM = #{LAST_PROGRAM,jdbcType=VARCHAR},
+      VERSION_EX_KEY = #{VERSION_EX_KEY,jdbcType=NUMERIC},
+      LGCL_CD_NAME = #{LGCL_CD_NAME,jdbcType=VARCHAR}
+    where PHYSCL_CD_NAME = #{PHYSCL_CD_NAME,jdbcType=NUMERIC}
+  </update>
+</mapper>

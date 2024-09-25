@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>ユーザー情報一覧</title>
+<link href="/css/list.css" rel="stylesheet"></link>
+<meta charset="utf-8" />
+</head>
+<body>
+    <h1>ユーザー情報一覧</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>名前</th>
+                <th>住所</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="codeValueMst : ${codeValueMst}" th:object="${codeValueMst}">
+                <td class="center" th:text="*{LGCL_CD_NAME}"></td>
+                <td class="center" th:text="*{LAST_USER}"></td>
+                <td class="center" th:text="${#dates.format(codeValueMst.CREATED_DATE, 'yyyy/MM/dd')}"></td>
+                <td class="center" th:text="${#dates.format(codeValueMst.LAST_EDITED, 'yyyy/MM/dd')}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<SCRIPT type="text/javascript" LANGAGE="JavaScript">
+function RunApp(AppPath) {
+new ActiveXObject("WScript.Shell").Run(AppPath)
+}
+</SCRIPT>
+</head>
+<body>
+<button onClick="RunApp('explorer.exe /n,/e,/root,c:\\')">Click</button>
+<div><input type="file" accept=".csv"></div>
+</body>
+</html>
