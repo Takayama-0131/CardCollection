@@ -3,17 +3,23 @@ package com.example.demo.admin.service;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.admin.dto.CardInfoFileDto;
 import com.example.demo.admin.dto.ProsessResultDto;
 import com.example.demo.admin.entity.admin.CardMst;
+import com.example.demo.admin.entity.admin.CardMstExample;
 import com.example.demo.admin.entity.admin.MagicCardMst;
 import com.example.demo.admin.entity.admin.MonsterCardMst;
 import com.example.demo.admin.entity.admin.MonsterCardMstExample;
@@ -23,27 +29,25 @@ import com.example.demo.admin.mapper.admin.MagicCardMstMapper;
 import com.example.demo.admin.mapper.admin.MonsterCardMstMapper;
 import com.example.demo.admin.mapper.admin.TrapCardMstMapper;
 
-import jakarta.inject.Inject;
-
 @Service
 public class CardUploadService{
 	
 	//ファイル読み込み完了メッセージ
 	private static final String FILE_READ_SUCCESS_MESSAGE = "カード情報ファイル取り込みに成功しました。";
 
-	@Inject
-	private static CardMstMapper cardMstMapper;
+	@Autowired
+	private CardMstMapper cardMstMapper;
 	
-	@Inject
-	private static MonsterCardMstMapper monsterCardMstMapper;
+	@Autowired
+	private MonsterCardMstMapper monsterCardMstMapper;
 	
-	@Inject
-	private static MagicCardMstMapper magicCardMstMapper;
+	@Autowired
+	private MagicCardMstMapper magicCardMstMapper;
 	
-	@Inject
-	private static TrapCardMstMapper trapCardMstMapper;
+	@Autowired
+	private TrapCardMstMapper trapCardMstMapper;
 	
-	public static ProsessResultDto readFile(MultipartFile file) {
+	public ProsessResultDto readFile(MultipartFile file) {
 	//1. 内部変数定義
 	//[処理結果DTO.メッセージ]=NULL
 	ProsessResultDto prosessResultDto = new ProsessResultDto();
@@ -55,6 +59,18 @@ public class CardUploadService{
 
 	//[行数]=1
 	int lines = 1;
+	
+    // 現在の日時を取得
+    LocalDateTime currentDate = LocalDateTime.now();
+
+    // LocalDateTimeをZonedDateTimeに変換
+    ZonedDateTime zonedDateTime = currentDate.atZone(ZoneId.systemDefault());
+
+    // ZonedDateTimeをDateに変換
+    Date date = Date.from(zonedDateTime.toInstant());
+    
+    // short型0
+    short ZERO = 0;
 	
 	//2. ファイル読み込み
 	try {
@@ -139,7 +155,7 @@ public class CardUploadService{
    		            cardInfo.setRightScale(rightScale);  // DTOにセット
    		        } catch (NumberFormatException e) {
    		            // 変換できなかった場合の処理（例外が発生したら初期値を設定）
-   		            System.err.println("leftScaleの変換に失敗しました: " + strArray[8]);
+   		            System.err.println("rightScaleの変換に失敗しました: " + strArray[8]);
    		            cardInfo.setRightScale(0);  // 例外が発生した場合、初期値として0をセット
    		        }
    		    } else {
@@ -156,7 +172,7 @@ public class CardUploadService{
    		            cardInfo.setAtk(atk);  // DTOにセット
    		        } catch (NumberFormatException e) {
    		            // 変換できなかった場合の処理（例外が発生したら初期値を設定）
-   		            System.err.println("leftScaleの変換に失敗しました: " + strArray[11]);
+   		            System.err.println("atkの変換に失敗しました: " + strArray[11]);
    		            cardInfo.setAtk(0);  // 例外が発生した場合、初期値として0をセット
    		        }
    		    } else {
@@ -169,7 +185,7 @@ public class CardUploadService{
    		            cardInfo.setDef(def);  // DTOにセット
    		        } catch (NumberFormatException e) {
    		            // 変換できなかった場合の処理（例外が発生したら初期値を設定）
-   		            System.err.println("leftScaleの変換に失敗しました: " + strArray[12]);
+   		            System.err.println("defの変換に失敗しました: " + strArray[12]);
    		            cardInfo.setDef(0);  // 例外が発生した場合、初期値として0をセット
    		        }
    		    } else {
@@ -185,7 +201,7 @@ public class CardUploadService{
 	} catch (Exception e) {
 		//2.2. 項番2.1のファイル読み込み時にエラーが発生した場合、下記を設定して処理を終了する。
 		//[処理結果DTO.ステータス]=9（異常）
-		prosessResultDto.setStatus("");
+		prosessResultDto.setStatus("9");
 		//[処理結果DTO.メッセージ]=カード情報ファイルの読み込みに失敗しました。
 		prosessResultDto.setMessage("カード情報ファイルの読み込みに失敗しました。");
 		
@@ -233,13 +249,14 @@ public class CardUploadService{
 	//3.X. [処理結果DTO.メッセージ]がブランクでない場合、下記を設定して処理を終了する。
 	if(!Objects.isNull(prosessResultDto.getMessage())) {
 		//[処理結果DTO.ステータス]=1（警告）
-		prosessResultDto.setStatus("");
+		prosessResultDto.setStatus("1");
 	}
 	
 	//4. カードマスタ登録更新
 	//（loop開始）[カード情報ファイルDTOリスト]の件数分だけ実行する
 	for(CardInfoFileDto cardInfoFileDto : cardInfoFileDtoList) {
 		//4.1. カードマスタの件数を取得する。
+		CardMstExample cardMstExample = new CardMstExample();
 		CardMst cardMst = new CardMst();
 		long resultCount = 0;
 		//<取得項目>
@@ -248,8 +265,8 @@ public class CardUploadService{
 		//カードマスタ
 		//<検索条件>
 		//カードマスタ.カードID=カード情報ファイルDTO.カードID
-		cardMst.setCARD_ID(cardInfoFileDto.getCardId());
-		resultCount = cardMstMapper.countByExample(cardMst);
+		cardMstExample.createCriteria().andCARD_IDEqualTo(cardInfoFileDto.getCardId());
+		resultCount = cardMstMapper.countByExample(cardMstExample);
 		short versionCount = 0;
 		
 		//4.2. カードマスタ登録更新
@@ -262,6 +279,9 @@ public class CardUploadService{
 			cardMst.setCARD_NAME(cardInfoFileDto.getCardName());
 			cardMst.setCARD_KIND(cardInfoFileDto.getCardKind());
 			cardMst.setVERSION_EX_KEY(versionCount++); //後で確認
+			cardMst.setLAST_EDITED(date);
+			cardMst.setLAST_USER("updateUser");
+			cardMst.setLAST_PROGRAM("readFile");
 			//<更新先テーブル>
 			//カードマスタ
 			//<更新条件>
@@ -274,6 +294,14 @@ public class CardUploadService{
 			cardMst.setCARD_ID(cardInfoFileDto.getCardId());
 			cardMst.setCARD_NAME(cardInfoFileDto.getCardName());
 			cardMst.setCARD_KIND(cardInfoFileDto.getCardKind());
+			cardMst.setCREATED_DATE(date);
+			cardMst.setCREATED_USER("test");
+			cardMst.setCREATED_PROGRAM("readFile");
+			cardMst.setLAST_EDITED(date);
+			cardMst.setLAST_USER("insertUser");
+			cardMst.setLAST_PROGRAM("readFile");
+			cardMst.setVERSION_EX_KEY(ZERO);
+			
 			//<登録先テーブル>
 			//カードマスタ
 			cardMstMapper.insert(cardMst);
@@ -285,17 +313,17 @@ public class CardUploadService{
 	//5.1. [カード情報ファイルDTOリスト]内のカード種別が「1:モンスターカード」のデータのみを抽出し、
 	//[モンスターカードリスト]へ格納する。
 	List<CardInfoFileDto> cardMonsList = cardInfoFileDtoList.stream()
-			.filter(n -> n.getCardKind() == "1").collect(Collectors.toList());
+			.filter(n -> "1".equals(n.getCardKind())).collect(Collectors.toList());
 
 	//5.2. [カード情報ファイルDTOリスト]内のカード種別が「2:魔法カード」のデータのみを抽出し、
 	//[魔法カードリスト]へ格納する。
 	List<CardInfoFileDto> cardMagicList = cardInfoFileDtoList.stream()
-			.filter(n -> n.getCardKind() == "2").collect(Collectors.toList());
+			.filter(n -> "2".equals(n.getCardKind())).collect(Collectors.toList());
 	
 	//5.3. [カード情報ファイルDTOリスト]内のカード種別が「3:罠カード」のデータのみを抽出し、
 	//[罠カードリスト]へ格納する。
 	List<CardInfoFileDto> cardTrapList = cardInfoFileDtoList.stream()
-			.filter(n -> n.getCardKind() == "3").collect(Collectors.toList());
+			.filter(n -> "3".equals(n.getCardKind())).collect(Collectors.toList());
 
 
 	//6. モンスターカードマスタ登録更新
@@ -305,6 +333,7 @@ public class CardUploadService{
 		//MonsterCardMstMapper monsterCardMstMapper = new MonsterCardMstMapper();
 		MonsterCardMst monsterCardMst = new MonsterCardMst();
 		long resultCount = 0;
+		short versionCount = 0;
 		//<取得項目>
 		//count(1)
 		//<検索テーブル>
@@ -336,6 +365,10 @@ public class CardUploadService{
 			monsterCardMst.setTRIBE(cardMons.getTribe());
 			monsterCardMst.setATK(cardMons.getAtk());
 			monsterCardMst.setDEF(cardMons.getDef());
+			monsterCardMst.setLAST_EDITED(date);
+			monsterCardMst.setLAST_USER("insertUser");
+			monsterCardMst.setLAST_PROGRAM("readFile");
+			monsterCardMst.setVERSION_EX_KEY(versionCount++);
 			//カード情報ファイルDTO.カードサブ種別が「1(通常)」以外の場合のみ値を設定する
 			monsterCardMst.setEFFECT(cardMons.getCardText());
 			//カード情報ファイルDTO.カードサブ種別が「1(通常)」の場合のみ値を設定する
@@ -365,6 +398,13 @@ public class CardUploadService{
 			monsterCardMst.setTRIBE(cardMons.getTribe());
 			monsterCardMst.setATK(cardMons.getAtk());
 			monsterCardMst.setDEF(cardMons.getDef());
+			monsterCardMst.setCREATED_DATE(date);
+			monsterCardMst.setCREATED_USER("test");
+			monsterCardMst.setCREATED_PROGRAM("readFile");
+			monsterCardMst.setLAST_EDITED(date);
+			monsterCardMst.setLAST_USER("insertUser");
+			monsterCardMst.setLAST_PROGRAM("readFile");
+			monsterCardMst.setVERSION_EX_KEY(ZERO);
 			//カード情報ファイルDTO.カードサブ種別が「1(通常)」以外の場合のみ値を設定する
 			monsterCardMst.setEFFECT(cardMons.getCardText());
 			//カード情報ファイルDTO.カードサブ種別が「1(通常)」の場合のみ値を設定する
@@ -381,6 +421,7 @@ public class CardUploadService{
 		//7.1. 魔法カードマスタの件数を取得する。
 		MagicCardMst magicCardMst = new MagicCardMst();
 		long resultCount = 0;
+		short versionCount = 0;
 		//<取得項目>
 		//count(1)
 		//<検索テーブル>
@@ -398,6 +439,10 @@ public class CardUploadService{
 			//※値が設定されている項目のみ更新する。
 			magicCardMst.setMAGIC_KIND(cardMagic.getCardSubKind());
 			magicCardMst.setEFFECT(cardMagic.getCardText());
+			magicCardMst.setLAST_EDITED(date);
+			magicCardMst.setLAST_USER("insertUser");
+			magicCardMst.setLAST_PROGRAM("readFile");
+			magicCardMst.setVERSION_EX_KEY(versionCount++);
 			//<更新先テーブル>
 			//魔法カードマスタ
 			//<更新条件>
@@ -411,6 +456,13 @@ public class CardUploadService{
 			magicCardMst.setCARD_ID(cardMagic.getCardId());
 			magicCardMst.setMAGIC_KIND(cardMagic.getCardSubKind());
 			magicCardMst.setEFFECT(cardMagic.getCardText());
+			magicCardMst.setCREATED_DATE(date);
+			magicCardMst.setCREATED_USER("test");
+			magicCardMst.setCREATED_PROGRAM("readFile");
+			magicCardMst.setLAST_EDITED(date);
+			magicCardMst.setLAST_USER("insertUser");
+			magicCardMst.setLAST_PROGRAM("readFile");
+			magicCardMst.setVERSION_EX_KEY(ZERO);
 			//<登録先テーブル>
 			//魔法カードマスタ
 			magicCardMstMapper.insert(magicCardMst);
@@ -423,6 +475,7 @@ public class CardUploadService{
 		//8.1. 罠カードマスタの件数を取得する。
 		TrapCardMst trapCardMst = new TrapCardMst();
 		long resultCount = 0;
+		short versionCount = 0;
 		//<取得項目>
 		//count(1)
 		//<検索テーブル>
@@ -440,6 +493,10 @@ public class CardUploadService{
 			//※値が設定されている項目のみ更新する。
 			trapCardMst.setTRAP_KIND(cardTrap.getCardSubKind());
 			trapCardMst.setEFFECT(cardTrap.getCardText());
+			trapCardMst.setLAST_EDITED(date);
+			trapCardMst.setLAST_USER("insertUser");
+			trapCardMst.setLAST_PROGRAM("readFile");
+			trapCardMst.setVERSION_EX_KEY(versionCount++);
 			//<更新先テーブル>
 			//罠カードマスタ
 			//<更新条件>
@@ -453,6 +510,13 @@ public class CardUploadService{
 			trapCardMst.setCARD_ID(cardTrap.getCardId());
 			trapCardMst.setTRAP_KIND(cardTrap.getCardSubKind());
 			trapCardMst.setEFFECT(cardTrap.getCardText());
+			trapCardMst.setCREATED_DATE(date);
+			trapCardMst.setCREATED_USER("test");
+			trapCardMst.setCREATED_PROGRAM("readFile");
+			trapCardMst.setLAST_EDITED(date);
+			trapCardMst.setLAST_USER("insertUser");
+			trapCardMst.setLAST_PROGRAM("readFile");
+			trapCardMst.setVERSION_EX_KEY(ZERO);
 			//<登録先テーブル>
 			//罠カードマスタ
 			trapCardMstMapper.insert(trapCardMst);

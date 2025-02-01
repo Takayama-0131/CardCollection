@@ -6,7 +6,16 @@
   </head>
   <body>
     <h1>ファイルアップロード動作確認</h1>
-    <form action="/upload111" method="post" enctype="multipart/form-data">
+    <div>カード情報登録</div>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+    	<label>ファイル：</label>
+    	<input type="file" name="file" />
+    	<br/>
+    	<input type="submit"/>
+    </form>
+    <br>
+    <div>カード価格登録</div>
+    <form action="/price" method="post" enctype="multipart/form-data">
     	<label>ファイル：</label>
     	<input type="file" name="file" />
     	<br/>

@@ -8,7 +8,7 @@ import com.example.demo.admin.entity.admin.CardMst;
 import com.example.demo.admin.entity.admin.CardMstExample;
 
 public interface CardMstMapper {
-    long countByExample(CardMst cardMst);
+    long countByExample(CardMstExample example);
 
     int deleteByExample(CardMstExample example);
 
@@ -22,7 +22,7 @@ public interface CardMstMapper {
 
     List<CardMst> selectByExample(CardMstExample example);
 
-    CardMst selectByPrimaryKey(Short CARD_ID);
+    long selectByPrimaryKey(CardMst cardMst);
 
     int updateByExampleSelective(@Param("row") CardMst row, @Param("example") CardMstExample example);
 

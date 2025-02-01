@@ -6,7 +6,7 @@ public class CardPriceFileDto {
 	/**
 	 * カードID
 	 */
-    private Integer cardId;
+    private Short cardId;
 
 	/**
 	 * レアリティ
@@ -23,11 +23,11 @@ public class CardPriceFileDto {
 	 */
     private BigDecimal purchasePrice;
 
-    public Integer getCardId() {
+    public Short getCardId() {
         return cardId;
     }
 
-    public void setCardId(Integer cardId) {
+    public void setCardId(Short cardId) {
         this.cardId = cardId;
     }
 
@@ -35,7 +35,7 @@ public class CardPriceFileDto {
         return rarity;
     }
 
-    public void setName(String rarity) {
+    public void setRarity(String rarity) {
         this.rarity = rarity;
     }
 
