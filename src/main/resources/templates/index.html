@@ -22,5 +22,12 @@
     	<input type="submit"/>
     </form>
     <h2><span th:text="${message}"></span></h2>
+    <div>カード名検索</div>
+    <form action="/search" method="post" enctype="multipart/form-data">
+    	<label>カード名：</label>
+    	<input type="search" name="search"/>
+    	<br/>
+    	<input type="submit"/>
+    </form>
   </body>
 </html>

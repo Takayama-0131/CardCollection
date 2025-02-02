@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.admin.dto.ProsessResultDto;
 import com.example.demo.admin.service.CardPriceUploadService;
+import com.example.demo.admin.service.CardSearchService;
 import com.example.demo.admin.service.CardUploadService;
 
 
@@ -21,6 +22,9 @@ public class FileUploadController {
     
     @Autowired
     private CardPriceUploadService cardPriceUploadService;
+    
+    @Autowired
+    private CardSearchService cardSearchService;
     
 	@GetMapping("/")
     public String helloWorld(Model model) {
@@ -48,6 +52,18 @@ public class FileUploadController {
             model.addAttribute("message", result.getMessage());
         } catch (Exception e) {
             model.addAttribute("message", "ファイルのアップロードに失敗しました。");
+        }
+        return "index";
+    }
+
+    @PostMapping("/search")
+    public String search(@RequestParam("search") String str,Model model) {
+    	// サービスでファイル処理
+    	try {
+    		ProsessResultDto result = cardSearchService.search(str);
+    		model.addAttribute("message", result.getMessage());
+    	} catch (Exception e) {
+            model.addAttribute("message", "カードの検索に失敗しました。");
         }
         return "index";
     }
