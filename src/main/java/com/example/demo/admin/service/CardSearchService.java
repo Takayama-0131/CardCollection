@@ -7,10 +7,12 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.admin.dto.MonsterCardDto;
 import com.example.demo.admin.dto.ProsessResultDto;
 import com.example.demo.admin.entity.admin.CardMst;
 import com.example.demo.admin.entity.admin.CardMstExample;
 import com.example.demo.admin.mapper.admin.CardMstMapper;
+import com.example.demo.admin.mapper.admin.MonsterCardMapper;
 
 @Service
 public class CardSearchService{
@@ -20,6 +22,9 @@ public class CardSearchService{
 	
 	@Autowired
 	private CardMstMapper cardMstMapper;
+	
+	@Autowired
+	private MonsterCardMapper monsterCardMapper;
 	
 	public ProsessResultDto search(String str) {
 		//1. 内部変数定義
@@ -41,6 +46,19 @@ public class CardSearchService{
 		resultList = cardMstMapper.selectByExample(cardMstExample);
 		final String searchCardName = resultList.get(0).getCARD_NAME();
 
+		//結合したテーブルから値を取得チェック
+		final int cardId = 1000;
+		//<取得項目>
+		//カード名
+		//レベル
+		//<検索テーブル>
+		//カードマスタ
+		//モンスターカードマスタ
+		//<検索条件>
+		//カードマスタ.カードID
+		MonsterCardDto monsterCardDto = monsterCardMapper.selectMonsterLevelAndCardName(cardId);
+		
+		
 		//存在チェック
 		if(Objects.isNull(resultList)) {
 			//[処理結果DTO.メッセージ]がブランクの場合、下記を設定する。

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.admin.mapper.admin.MonsterCardMapper">
+    <resultMap id="JoinResultMap" type="com.example.demo.admin.dto.MonsterCardDto">
+      <result column="CARD_NAME" jdbcType="VARCHAR" property="cardName" />
+      <result column="MONSTER_LEVEL" jdbcType="NUMERIC" property="monsterLevel" />
+    </resultMap>
+
+    <select id="selectMonsterLevelAndCardName" resultMap="JoinResultMap">
+        SELECT 
+            mc.MONSTER_LEVEL, 
+            cm.CARD_NAME
+        FROM MONSTER_CARD_MST mc
+        INNER JOIN CARD_MST cm ON mc.CARD_ID = cm.CARD_ID
+        WHERE mc.CARD_ID = #{cardId}
+    </select>
+</mapper>
