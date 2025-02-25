@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.admin.mapper.CardSearchMapper">
+
+    <resultMap id="JoinResultMap" type="com.example.demo.admin.dto.CardSearchDto">
+        <result column="CARD_ID" property="cardId" />
+        <result column="CARD_NAME" property="cardName" />
+        <result column="CARD_KIND_NAME" property="cardKind" />
+        <result column="MONSTER_KIND_NAME" property="monsterKind" />
+        <result column="MONSTER_CHARAC" property="monsterCharac" />
+        <result column="MONSTER_LEVEL" property="monsterLevel" />
+        <result column="RANK" property="rank" />
+        <result column="LINK" property="link" />
+        <result column="LEFT_SCALE" property="leftScale" />
+        <result column="RIGHT_SCALE" property="rightScale" />
+        <result column="ATTRIBUTE" property="attribute" />
+        <result column="TRIBE" property="tribe" />
+        <result column="ATK" property="atk" />
+        <result column="DEF" property="def" />
+        <result column="MONSTER_EFFECT" property="monsterEffect" />
+        <result column="FLAVOR_TEXT" property="flavorText" />
+        <result column="MAGIC_KIND_NAME" property="magicKind" />
+        <result column="MAGIC_EFFECT" property="magicEffect" />
+        <result column="TRAP_KIND_NAME" property="trapKind" />
+        <result column="TRAP_EFFECT" property="trapEffect" />
+    </resultMap>
+
+    <select id="selectCardSearch" resultMap="JoinResultMap">
+        SELECT 
+            a.CARD_ID,
+            a.CARD_NAME,
+            cv1.LGCL_CD_NAME AS CARD_KIND_NAME,
+            cv2.LGCL_CD_NAME AS MONSTER_KIND_NAME,
+            b.MONSTER_CHARAC,
+            b.MONSTER_LEVEL,
+            b.RANK,
+            b.LINK,
+            b.LEFT_SCALE,
+            b.RIGHT_SCALE,
+            b.ATTRIBUTE,
+            b.TRIBE,
+            b.ATK,
+            b.DEF,
+            b.EFFECT AS MONSTER_EFFECT,
+            b.FLAVOR_TEXT,
+            cv3.LGCL_CD_NAME AS MAGIC_KIND_NAME,
+            c.EFFECT AS MAGIC_EFFECT,
+            cv4.LGCL_CD_NAME AS TRAP_KIND_NAME,
+            d.EFFECT AS TRAP_EFFECT
+        FROM CARD_MST a
+        LEFT JOIN MONSTER_CARD_MST b ON a.CARD_ID = b.CARD_ID
+        LEFT JOIN MAGIC_CARD_MST c ON a.CARD_ID = c.CARD_ID
+        LEFT JOIN TRAP_CARD_MST d ON a.CARD_ID = d.CARD_ID
+        LEFT JOIN CODE_VALUE_MST cv1 ON a.CARD_KIND = cv1.CD_VAL AND cv1.PHYSCL_CD_NAME = 'CARD_KIND'
+        LEFT JOIN CODE_VALUE_MST cv2 ON b.MONSTER_KIND = cv2.CD_VAL AND cv2.PHYSCL_CD_NAME = 'MONSTER_KIND'
+        LEFT JOIN CODE_VALUE_MST cv3 ON c.MAGIC_KIND = cv3.CD_VAL AND cv3.PHYSCL_CD_NAME = 'MAGIC_KIND'
+        LEFT JOIN CODE_VALUE_MST cv4 ON d.TRAP_KIND = cv4.CD_VAL AND cv4.PHYSCL_CD_NAME = 'TRAP_KIND'
+        <where>
+            <if test="cardId != null">
+                AND a.CARD_ID = #{cardId}
+            </if>
+            <if test="cardName != null">
+                AND a.CARD_NAME LIKE CONCAT('%', #{cardName}, '%')
+            </if>
+            <if test="cardKind != null">
+                AND a.CARD_KIND = #{cardKind}
+            </if>
+            <if test="monsterKind != null">
+                AND b.MONSTER_KIND = #{monsterKind}
+            </if>
+            <if test="magicKind != null">
+                AND c.MAGIC_KIND = #{magicKind}
+            </if>
+            <if test="trapKind != null">
+                AND d.TRAP_KIND = #{trapKind}
+            </if>
+        </where>
+    </select>
+</mapper>
