@@ -24,10 +24,84 @@
     <h2><span th:text="${message}"></span></h2>
     <div>カード名検索</div>
     <form action="/search" method="post" enctype="multipart/form-data">
-    	<label>カード名：</label>
-    	<input type="search" name="search"/>
+    	<div>
+			<label>カードID：</label>
+    		<input type="search" name="cardId"/>
+    	</div>
+    	<div>
+    		<label>カード名：</label>
+    		<input type="search" name="cardName"/>
+    	</div>
+    	<div>
+    		<label>カード種別：</label>
+    		<input type="search" name="cardKind"/>
+    	</div>
+    	<div>
+    		<label>モンスター種別：</label>
+    		<input type="search" name="monsterKind"/>
+    	</div>
+    	<div>
+    		<label>魔法種別：</label>
+    		<input type="search" name="magicKind"/>
+    	</div>
+    	<div>
+    		<label>罠種別：</label>
+    		<input type="search" name="trapKind"/>
+    	</div>
     	<br/>
     	<input type="submit"/>
     </form>
+    <h3>検索結果</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>カードID</th>
+                <th>カード名</th>
+                <th>カード種別</th>
+                <th>モンスター種別</th>
+                <th>モンスター特性</th>
+                <th>レベル</th>
+                <th>ランク</th>
+                <th>リンク</th>
+                <th>左スケール</th>
+                <th>右スケール</th>
+                <th>属性</th>
+                <th>種族</th>
+                <th>攻撃力</th>
+                <th>守備力</th>
+                <th>効果</th>
+                <th>フレーバーテキスト</th>
+                <th>魔法種別</th>
+                <th>効果</th>
+                <th>罠種別</th>
+                <th>効果</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 検索結果を繰り返し表示 -->
+            <tr th:each="card : ${cards}">
+                <td th:text="${card.cardId}"></td>
+                <td th:text="${card.cardName}"></td>
+                <td th:text="${card.cardKind}"></td>
+                <td th:text="${card.monsterKind}"></td>
+                <td th:text="${card.monsterCharac}"></td>
+                <td th:text="${card.monsterLevel}"></td>
+                <td th:text="${card.rank}"></td>
+                <td th:text="${card.link}"></td>
+                <td th:text="${card.leftScale}"></td>
+                <td th:text="${card.rightScale}"></td>
+                <td th:text="${card.attribute}"></td>
+                <td th:text="${card.tribe}"></td>
+                <td th:text="${card.atk}"></td>
+                <td th:text="${card.def}"></td>
+                <td th:text="${card.monsterEffect}"></td>
+                <td th:text="${card.flavorText}"></td>
+                <td th:text="${card.magicKind}"></td>
+                <td th:text="${card.magicEffect}"></td>
+                <td th:text="${card.trapKind}"></td>
+                <td th:text="${card.trapEffect}"></td>
+            </tr>
+        </tbody>
+    </table>
   </body>
 </html>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.admin.mapper.CardSearchMapper">
+<mapper namespace="com.example.demo.admin.mapper.admin.CardSearchMapper">
 
     <resultMap id="JoinResultMap" type="com.example.demo.admin.dto.CardSearchDto">
         <result column="CARD_ID" property="cardId" />
@@ -56,23 +56,23 @@
         LEFT JOIN CODE_VALUE_MST cv3 ON c.MAGIC_KIND = cv3.CD_VAL AND cv3.PHYSCL_CD_NAME = 'MAGIC_KIND'
         LEFT JOIN CODE_VALUE_MST cv4 ON d.TRAP_KIND = cv4.CD_VAL AND cv4.PHYSCL_CD_NAME = 'TRAP_KIND'
         <where>
-            <if test="cardId != null">
-                AND a.CARD_ID = #{cardId}
+            <if test="searchInfo.cardId != null">
+                AND a.CARD_ID = #{searchInfo.cardId}
             </if>
-            <if test="cardName != null">
-                AND a.CARD_NAME LIKE CONCAT('%', #{cardName}, '%')
+            <if test="searchInfo.cardName != null">
+                AND a.CARD_NAME LIKE '%' || #{searchInfo.cardName} || '%'
             </if>
-            <if test="cardKind != null">
-                AND a.CARD_KIND = #{cardKind}
+            <if test="searchInfo.cardKind != null">
+                AND a.CARD_KIND = #{searchInfo.cardKind}
             </if>
-            <if test="monsterKind != null">
-                AND b.MONSTER_KIND = #{monsterKind}
+            <if test="searchInfo.monsterKind != null">
+                AND b.MONSTER_KIND = #{searchInfo.monsterKind}
             </if>
-            <if test="magicKind != null">
-                AND c.MAGIC_KIND = #{magicKind}
+            <if test="searchInfo.magicKind != null">
+                AND c.MAGIC_KIND = #{searchInfo.magicKind}
             </if>
-            <if test="trapKind != null">
-                AND d.TRAP_KIND = #{trapKind}
+            <if test="searchInfo.trapKind != null">
+                AND d.TRAP_KIND = #{searchInfo.trapKind}
             </if>
         </where>
     </select>
