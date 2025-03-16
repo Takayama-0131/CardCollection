@@ -60,6 +60,24 @@ public class CardSearchService {
             criteria.setTrapKind(searchInfo.getTrapKind());
         }
 
+        // 攻撃力 - 空文字の場合はnullに設定
+        if ("".equals(searchInfo.getAtk())) {
+            criteria.setAtk(null);
+            criteria.setAtkCondition(null);
+        } else {
+            criteria.setAtk(searchInfo.getAtk());
+            criteria.setAtkCondition(searchInfo.getAtkCondition());
+        }
+
+        // 守備力 - 空文字の場合はnullに設定
+        if ("".equals(searchInfo.getDef())) {
+            criteria.setDef(null);
+            criteria.setDefCondition(null);
+        } else {
+            criteria.setDef(searchInfo.getDef());
+            criteria.setDefCondition(searchInfo.getDefCondition());
+        }
+
         // 2. カードマスタからカード名を検索
 		List<CardSearchDto> cardSearchDto = cardSearchMapper.selectCardSearch(criteria);
 

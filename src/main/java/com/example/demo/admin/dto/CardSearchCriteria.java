@@ -10,4 +10,8 @@ public class CardSearchCriteria {
     private String monsterKind;
     private String magicKind;
     private String trapKind;
+    private String atk;
+    private String atkCondition;
+    private String def;
+    private String defCondition;
 }

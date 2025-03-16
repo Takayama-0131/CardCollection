@@ -31,14 +31,14 @@
             a.CARD_NAME,
             cv1.LGCL_CD_NAME AS CARD_KIND_NAME,
             cv2.LGCL_CD_NAME AS MONSTER_KIND_NAME,
-            b.MONSTER_CHARAC,
+            cv5.LGCL_CD_NAME AS MONSTER_CHARAC,
             b.MONSTER_LEVEL,
             b.RANK,
             b.LINK,
             b.LEFT_SCALE,
             b.RIGHT_SCALE,
-            b.ATTRIBUTE,
-            b.TRIBE,
+            cv6.LGCL_CD_NAME AS ATTRIBUTE,
+            cv7.LGCL_CD_NAME AS TRIBE,
             b.ATK,
             b.DEF,
             b.EFFECT AS MONSTER_EFFECT,
@@ -55,6 +55,9 @@
         LEFT JOIN CODE_VALUE_MST cv2 ON b.MONSTER_KIND = cv2.CD_VAL AND cv2.PHYSCL_CD_NAME = 'MONSTER_KIND'
         LEFT JOIN CODE_VALUE_MST cv3 ON c.MAGIC_KIND = cv3.CD_VAL AND cv3.PHYSCL_CD_NAME = 'MAGIC_KIND'
         LEFT JOIN CODE_VALUE_MST cv4 ON d.TRAP_KIND = cv4.CD_VAL AND cv4.PHYSCL_CD_NAME = 'TRAP_KIND'
+        LEFT JOIN CODE_VALUE_MST cv5 ON b.MONSTER_CHARAC = cv5.CD_VAL AND cv5.PHYSCL_CD_NAME = 'MONSTER_CHARAC'
+        LEFT JOIN CODE_VALUE_MST cv6 ON b.ATTRIBUTE = cv6.CD_VAL AND cv6.PHYSCL_CD_NAME = 'ATTRIBUTE'
+        LEFT JOIN CODE_VALUE_MST cv7 ON b.TRIBE = cv7.CD_VAL AND cv7.PHYSCL_CD_NAME = 'RACE'
         <where>
             <if test="searchInfo.cardId != null">
                 AND a.CARD_ID = #{searchInfo.cardId}
@@ -74,6 +77,37 @@
             <if test="searchInfo.trapKind != null">
                 AND d.TRAP_KIND = #{searchInfo.trapKind}
             </if>
+
+            <!-- ATK 検索条件 -->
+            <if test="searchInfo.atk != null and searchInfo.atkCondition != null">
+                <choose>
+                    <when test="searchInfo.atkCondition == 'equal'">
+                        AND b.ATK = #{searchInfo.atk}
+                    </when>
+                    <when test="searchInfo.atkCondition == 'below'">
+                        AND b.ATK &lt;= #{searchInfo.atk}
+                    </when>
+                    <when test="searchInfo.atkCondition == 'above'">
+                        AND b.ATK &gt;= #{searchInfo.atk}
+                    </when>
+                </choose>
+            </if>
+
+            <!-- DEF 検索条件 -->
+            <if test="searchInfo.def != null and searchInfo.defCondition != null">
+                <choose>
+                    <when test="searchInfo.defCondition == 'equal'">
+                        AND b.DEF = #{searchInfo.def}
+                    </when>
+                    <when test="searchInfo.defCondition == 'below'">
+                        AND b.DEF &lt;= #{searchInfo.def}
+                    </when>
+                    <when test="searchInfo.defCondition == 'above'">
+                        AND b.DEF &gt;= #{searchInfo.def}
+                    </when>
+                </choose>
+            </if>
+
         </where>
     </select>
 </mapper>
