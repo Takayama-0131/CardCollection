@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.admin.dto.CardSearchCriteria;
 import com.example.demo.admin.dto.CardSearchDto;
+import com.example.demo.admin.dto.CardSearchInfoDto;
 import com.example.demo.admin.mapper.admin.CardSearchMapper;
 
 @Service
@@ -88,5 +89,10 @@ public class CardSearchService {
 
         // 4. カード情報を返す
         return cardSearchDto;
+    }
+
+    // カード種別のリストを取得するメソッドを追加
+    public List<CardSearchInfoDto> getCardKinds() {
+    	return cardSearchMapper.selectCardKinds();
     }
 }

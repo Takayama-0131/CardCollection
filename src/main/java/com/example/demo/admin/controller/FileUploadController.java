@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.admin.dto.CardSearchCriteria;
 import com.example.demo.admin.dto.CardSearchDto;
+import com.example.demo.admin.dto.CardSearchInfoDto;
 import com.example.demo.admin.dto.ProsessResultDto;
 import com.example.demo.admin.service.CardPriceUploadService;
 import com.example.demo.admin.service.CardSearchService;
@@ -31,10 +32,11 @@ public class FileUploadController {
     private CardSearchService cardSearchService;
 
     @GetMapping("/")
-    public String helloWorld(Model model) {
-        model.addAttribute("message", "Hello World!");
-        model.addAttribute("cards", null); // 初期表示用
-        return "index";  // templates/index.html を返す
+    public String showSearchPage(Model model) {
+        // カード種別リストを取得
+        List<CardSearchInfoDto> cardSearchInfo = cardSearchService.getCardKinds();
+        model.addAttribute("cardSearchInfo", cardSearchInfo);
+        return "index";
     }
 
     @PostMapping("/upload")
