@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,8 @@ import com.example.demo.admin.service.CardUploadService;
 @Controller
 public class FileUploadController {
 
+	private static final Logger logger = LoggerFactory.getLogger(FileUploadController.class);
+
     @Autowired
     private CardUploadService cardUploadService;
 
@@ -35,7 +39,7 @@ public class FileUploadController {
 
     @GetMapping("/")
     public String showSearchPage(Model model) {
-        // カード種別リストを取得
+        // 検索条件リストを取得
         CardSearchInfoDto cardSearchInfo = cardSearchService.getCardKinds();
         model.addAttribute("cardSearchInfo", cardSearchInfo);
         return "index";
@@ -66,17 +70,26 @@ public class FileUploadController {
     @PostMapping("/search")
     public String search(@ModelAttribute CardSearchCriteria searchInfo, Model model) {
         try {
-            List<CardSearchDto> cards = cardSearchService.search(searchInfo);
-            CardSearchInfoDto cardSearchInfo = cardSearchService.getCardKinds();
-            model.addAttribute("cardSearchInfo", cardSearchInfo);
-            model.addAttribute("cards", cards);
-            
-            // 現在時刻を取得してフォーマット
+            // ログ出力（現在時刻付き）
+        	// カード検索実行時
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             String formattedDateTime = now.format(formatter);
+            logger.info("カード検索が実行されました（時刻: {}）", formattedDateTime);
             
-            model.addAttribute("message", "検索が完了しました。(" + formattedDateTime + ")");
+            // カード検索
+            List<CardSearchDto> cards = cardSearchService.search(searchInfo);
+            // カード検索完了時
+            now = LocalDateTime.now();
+            formattedDateTime = now.format(formatter);
+            logger.info("カード検索が完了しました（時刻: {}）", formattedDateTime);
+            
+            // 検索条件リストを取得
+            CardSearchInfoDto cardSearchInfo = cardSearchService.getCardKinds();
+            
+            model.addAttribute("cardSearchInfo", cardSearchInfo);
+            model.addAttribute("cards", cards);
+            model.addAttribute("message", "検索が完了しました。");
         } catch (Exception e) {
             model.addAttribute("message", "カードの検索に失敗しました。");
             model.addAttribute("cards", null);
