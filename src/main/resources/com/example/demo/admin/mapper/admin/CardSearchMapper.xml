@@ -110,4 +110,32 @@
 
         </where>
     </select>
+    
+    <!-- CardKind を取得する SQL -->
+    <select id="selectCardKinds" resultType="com.example.demo.admin.dto.CardKindSearchInfoDto">
+        SELECT LGCL_CD_NAME AS lgclCdName, CD_VAL AS cdVal
+        FROM CODE_VALUE_MST
+        WHERE PHYSCL_CD_NAME = 'CARD_KIND'
+    </select>
+
+    <!-- MonsterKind を取得する SQL -->
+    <select id="selectMonsterKinds" resultType="com.example.demo.admin.dto.MonsterKindSearchInfoDto">
+        SELECT LGCL_CD_NAME AS lgclCdName, CD_VAL AS cdVal
+        FROM CODE_VALUE_MST
+        WHERE PHYSCL_CD_NAME = 'MONSTER_KIND'
+    </select>
+
+    <!-- MagicKind を取得する SQL -->
+    <select id="selectMagicKinds" resultType="com.example.demo.admin.dto.MagicKindSearchInfoDto">
+        SELECT LGCL_CD_NAME AS lgclCdName, CD_VAL AS cdVal
+        FROM CODE_VALUE_MST
+        WHERE PHYSCL_CD_NAME = 'MAGIC_KIND'
+    </select>
+
+    <!-- TrapKind を取得する SQL -->
+    <select id="selectTrapKinds" resultType="com.example.demo.admin.dto.TrapKindSearchInfoDto">
+        SELECT LGCL_CD_NAME AS lgclCdName, CD_VAL AS cdVal
+        FROM CODE_VALUE_MST
+        WHERE PHYSCL_CD_NAME = 'TRAP_KIND'
+    </select>
 </mapper>

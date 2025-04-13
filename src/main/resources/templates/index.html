@@ -22,7 +22,7 @@
     	<br/>
     	<input type="submit"/>
     </form>
-    <h2><span th:text="${message}"></span></h2>
+    <br>
     <div>カード名検索</div>
     <form action="/search" method="post" enctype="multipart/form-data">
     	<div>
@@ -37,20 +37,29 @@
     		<label>カード種別：</label>
     		<select name="cardKind">
         		<option value="">選択してください</option>
-        		<option th:each="kind : ${cardSearchInfo}" th:value="${cdVal}" th:text="${lgclCdName}"></option>
+        		<option th:each="kind : ${cardSearchInfo.cardKinds}" th:value="${kind.cdVal}" th:text="${kind.lgclCdName}"></option>
     		</select>
     	</div>
     	<div>
     		<label>モンスター種別：</label>
-    		<input type="search" name="monsterKind"/>
+    		<select name="monsterKind">
+        		<option value="">選択してください</option>
+        		<option th:each="kind : ${cardSearchInfo.monsterKinds}" th:value="${kind.cdVal}" th:text="${kind.lgclCdName}"></option>
+    		</select>
     	</div>
     	<div>
     		<label>魔法種別：</label>
-    		<input type="search" name="magicKind"/>
+    		<select name="magicKind">
+        		<option value="">選択してください</option>
+        		<option th:each="kind : ${cardSearchInfo.magicKinds}" th:value="${kind.cdVal}" th:text="${kind.lgclCdName}"></option>
+    		</select>
     	</div>
     	<div>
     		<label>罠種別：</label>
-    		<input type="search" name="trapKind"/>
+    		<select name="trapKind">
+        		<option value="">選択してください</option>
+        		<option th:each="kind : ${cardSearchInfo.trapKinds}" th:value="${kind.cdVal}" th:text="${kind.lgclCdName}"></option>
+    		</select>
     	</div>
     	<div>
     		<label>攻撃力：</label>
@@ -75,6 +84,7 @@
     	<br/>
     	<input type="submit"/>
     </form>
+    <h2><span th:text="${message}"></span></h2>
     <h3>検索結果</h3>
     <table>
         <thead>

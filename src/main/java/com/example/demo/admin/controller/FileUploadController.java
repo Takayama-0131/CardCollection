@@ -1,5 +1,7 @@
 package com.example.demo.admin.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,7 @@ public class FileUploadController {
     @GetMapping("/")
     public String showSearchPage(Model model) {
         // カード種別リストを取得
-        List<CardSearchInfoDto> cardSearchInfo = cardSearchService.getCardKinds();
+        CardSearchInfoDto cardSearchInfo = cardSearchService.getCardKinds();
         model.addAttribute("cardSearchInfo", cardSearchInfo);
         return "index";
     }
@@ -65,8 +67,16 @@ public class FileUploadController {
     public String search(@ModelAttribute CardSearchCriteria searchInfo, Model model) {
         try {
             List<CardSearchDto> cards = cardSearchService.search(searchInfo);
+            CardSearchInfoDto cardSearchInfo = cardSearchService.getCardKinds();
+            model.addAttribute("cardSearchInfo", cardSearchInfo);
             model.addAttribute("cards", cards);
-            model.addAttribute("message", "検索が完了しました。");
+            
+            // 現在時刻を取得してフォーマット
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            String formattedDateTime = now.format(formatter);
+            
+            model.addAttribute("message", "検索が完了しました。(" + formattedDateTime + ")");
         } catch (Exception e) {
             model.addAttribute("message", "カードの検索に失敗しました。");
             model.addAttribute("cards", null);

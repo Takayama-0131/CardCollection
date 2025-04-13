@@ -1,13 +1,18 @@
 package com.example.demo.admin.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.admin.dto.CardKindSearchInfoDto;
 import com.example.demo.admin.dto.CardSearchCriteria;
 import com.example.demo.admin.dto.CardSearchDto;
 import com.example.demo.admin.dto.CardSearchInfoDto;
+import com.example.demo.admin.dto.MagicKindSearchInfoDto;
+import com.example.demo.admin.dto.MonsterKindSearchInfoDto;
+import com.example.demo.admin.dto.TrapKindSearchInfoDto;
 import com.example.demo.admin.mapper.admin.CardSearchMapper;
 
 @Service
@@ -92,7 +97,18 @@ public class CardSearchService {
     }
 
     // カード種別のリストを取得するメソッドを追加
-    public List<CardSearchInfoDto> getCardKinds() {
-    	return cardSearchMapper.selectCardKinds();
+    public CardSearchInfoDto getCardKinds() {
+    	CardSearchInfoDto cardSearchInfo = new CardSearchInfoDto();
+    	List<CardKindSearchInfoDto> cardKind = cardSearchMapper.selectCardKinds();
+    	List<MonsterKindSearchInfoDto> monsterKind = cardSearchMapper.selectMonsterKinds();
+    	List<MagicKindSearchInfoDto> magicKind = cardSearchMapper.selectMagicKinds();
+    	List<TrapKindSearchInfoDto> trapKind = cardSearchMapper.selectTrapKinds();
+    	
+        // null を空リストで補完
+        cardSearchInfo.setCardKinds(cardKind != null ? cardKind : Collections.emptyList());
+        cardSearchInfo.setMonsterKinds(monsterKind != null ? monsterKind : Collections.emptyList());
+        cardSearchInfo.setMagicKinds(magicKind != null ? magicKind : Collections.emptyList());
+        cardSearchInfo.setTrapKinds(trapKind != null ? trapKind : Collections.emptyList());
+    	return cardSearchInfo;
     }
 }

@@ -1,21 +1,44 @@
 package com.example.demo.admin.dto;
 
+import java.util.List;
+
 public class CardSearchInfoDto {
-    private String lgclCdName;
-    private Integer cdVal;
 
-    // ゲッター・セッター
-    public String getLGCL_CD_NAME() {
-        return lgclCdName;
-    }
-    public void setLGCL_CD_NAME(String LGCL_CD_NAME) {
-        this.lgclCdName = LGCL_CD_NAME;
-    }
+	 private List<CardKindSearchInfoDto> cardKinds;
+	 private List<MonsterKindSearchInfoDto> monsterKinds;
+	 private List<MagicKindSearchInfoDto> magicKinds;
+	 private List<TrapKindSearchInfoDto> trapKinds;
 
-    public Integer getCD_VAL() {
-        return cdVal;
-    }
-    public void setCD_VAL(Integer CD_VAL) {
-        this.cdVal = CD_VAL;
-    }
+	 // --- Getters & Setters ---
+	 public List<CardKindSearchInfoDto> getCardKinds() {
+	     return cardKinds;
+	 }
+
+	 public void setCardKinds(List<CardKindSearchInfoDto> cardKinds) {
+	     this.cardKinds = cardKinds;
+	 }
+
+	 public List<MonsterKindSearchInfoDto> getMonsterKinds() {
+	     return monsterKinds;
+	 }
+
+	 public void setMonsterKinds(List<MonsterKindSearchInfoDto> monsterKinds) {
+	     this.monsterKinds = monsterKinds;
+	 }
+
+	 public List<MagicKindSearchInfoDto> getMagicKinds() {
+	     return magicKinds;
+	 }
+
+	 public void setMagicKinds(List<MagicKindSearchInfoDto> magicKinds) {
+	     this.magicKinds = magicKinds;
+	 }
+
+	 public List<TrapKindSearchInfoDto> getTrapKinds() {
+	     return trapKinds;
+	 }
+
+	 public void setTrapKinds(List<TrapKindSearchInfoDto> trapKinds) {
+	     this.trapKinds = trapKinds;
+	 }
 }
